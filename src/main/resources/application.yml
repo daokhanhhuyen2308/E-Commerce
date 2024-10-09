@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: e-commerce
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecommerce
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+
+admin:
+  username: admin
+  password: admin
+
+server:
+  port: 8081
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: ERROR
+    org.springframework.security: OFF
+
+token:
+  secret-key: chill_code_with_us
+  access:
+    expiration: 3600000
+  refresh:
+    expiration: 86400000
