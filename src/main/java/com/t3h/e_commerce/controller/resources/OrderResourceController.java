@@ -18,4 +18,3 @@ public class OrderResourceController {
         @RequestParam(name = "size", defaultValue = "10") int size){
         return iOrderService.orderProduct(page, size, request);
     }
-}

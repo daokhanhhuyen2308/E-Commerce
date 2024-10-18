@@ -22,4 +22,3 @@ public class OrderServiceImpl implements IOrderService {
     public OrderResponse orderProduct(int page, int size, OrderCreationRequest request) {
         return null;
     }
-}
