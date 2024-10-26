@@ -12,22 +12,4 @@ public class UserController {
     public String loginPage() {
         return "guest/login";
     }
-
-    @GetMapping("/homepage")
-    public String homepage() {
-        return "guest/homepage";
-    }
-    @GetMapping("/payment")
-    public String paymentPage() {
-        return "guest/payment";
-    }
-    @GetMapping("/viewdetail")
-    public String viewdetailPage() {
-        return "guest/demo";
-    }
-    @GetMapping("cart")
-    public String viewCart(){
-        return "guest/cart";
-    }
-
 }

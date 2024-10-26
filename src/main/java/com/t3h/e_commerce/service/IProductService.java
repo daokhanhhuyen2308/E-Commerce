@@ -13,6 +13,4 @@ public interface IProductService {
     ResponsePage<ProductResponse> getAllProducts(ProductRequestFilter filter, int page, int size);
 
     ProductResponse updateProduct(Integer id, ProductUpdateRequest request);
-
-    ProductResponse getById(Integer id);
 }

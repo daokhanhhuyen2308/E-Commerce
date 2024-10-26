@@ -52,12 +52,6 @@ public class ProductResourceController {
         return ResponseEntity.ok(productResponse);
     }
 
-    @GetMapping("/get/{id}")
-    public ProductResponse getProductById(@PathVariable Integer id){
-        ProductResponse ps = iProductService.getById(id);
-        return ResponseEntity.ok(ps).getBody();
-    }
-
 
 
 }
