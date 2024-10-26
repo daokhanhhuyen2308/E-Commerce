@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -137,5 +138,11 @@ public class ProductServiceImpl implements IProductService {
         product = productRepository.save(product);
 
         return modelMapper.map(product, ProductResponse.class);
+    }
+
+    @Override
+    public ProductResponse getById(Integer id){
+        Optional<ProductEntity> pr = productRepository.findById(id);
+        return productMapper.toProductResponse(pr.orElse(null));
     }
 }
