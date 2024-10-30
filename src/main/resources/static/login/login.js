@@ -1,5 +1,5 @@
-const sign_in_btn = document.querySelector("#sign-in-btn");
-const sign_up_btn = document.querySelector("#sign-up-btn");
+const sign_in_btn = document.getElementById("sign-in-btn");
+const sign_up_btn = document.getElementById("sign-up-btn");
 const container = document.querySelector(".container");
 
 sign_up_btn.addEventListener('click', () => {
@@ -49,7 +49,7 @@ $(document).ready(function(){
             contentType: "application/json",
             data: JSON.stringify({username: signUpUsername, email: signUpEmail, password: signUpPassword,
                 firstName: firstName, lastName: lastName, phone: phone, address: address}),
-            success: function (response) {
+            success: function () {
                 alert("Đăng ký thành công!");
                 window.location.href = "login";
             },

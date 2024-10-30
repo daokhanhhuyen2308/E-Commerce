@@ -29,18 +29,10 @@ public class WebSecurityConfig {
         httpSecurity.cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable);
         httpSecurity.authorizeHttpRequests(auth -> auth.requestMatchers(Endpoints.Public_Endpoints).permitAll()
-                        .requestMatchers("/guests/**").permitAll()
-                        .requestMatchers("/home-guest", "/").permitAll()  // Thêm /home-guest và / để cho phép truy cập công khai
-                        .requestMatchers("/seller").permitAll()  // Thêm /home-guest và / để cho phép truy cập công khai
-                        .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/image/**").permitAll()
-                        .requestMatchers("/js/**").permitAll()
-                        .requestMatchers("/login/**").permitAll()
-                        .requestMatchers("/seller_css/**").permitAll()
-                        .requestMatchers("/seller_js/**").permitAll()
+                        .requestMatchers("/guest/**", "/products/**").permitAll()
+                        .requestMatchers( "/login/**", "/cms/**", "/assets/**", "/seller/**","/homepage/**",
+                                "/image/**", "/js/**", "/").permitAll()
                         .requestMatchers(Endpoints.Admin_Endpoints).hasRole("ADMIN")
-                        .requestMatchers("/orders/order").permitAll()
-                        .requestMatchers("/carts/add").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.exceptionHandling(exception -> {

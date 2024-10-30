@@ -1,6 +1,7 @@
 package com.t3h.e_commerce.entity;
 
 import com.t3h.e_commerce.enums.PaymentType;
+import com.t3h.e_commerce.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,8 +20,9 @@ public class PaymentEntity extends BaseEntity{
     @Enumerated(EnumType.STRING)
     PaymentType paymentMethod;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "payment_status")
-    boolean paymentStatus;
+    PaymentStatus paymentStatus;
 
     @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL)
     List<OrderEntity> orders;

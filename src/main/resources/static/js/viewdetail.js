@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('.image').on('click', function(){
         const productId = $(this).data('id');
         $.ajax({
-            url: `${URL}/get/${productId}`,
+            url: URL + `/get/${productId}`,
             type: 'GET',
             contentType: 'application/json',
             success: function (response) {

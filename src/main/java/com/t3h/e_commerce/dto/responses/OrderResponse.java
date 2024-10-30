@@ -9,14 +9,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
-
 public class OrderResponse {
     private Long orderId;
+    private List<OrderItemResponse> items;
     private int totalQuantity;
     private BigDecimal totalPrice;
     private BigDecimal shippingCost;
@@ -29,8 +27,7 @@ public class OrderResponse {
     private String paymentStatus;
     private String paymentMethod;
     private ShippingAddressResponse shippingAddress;
-    private List<OrderItemResponse> items;
     private String trackingId;
 
-    // Getters và Setters
+
 }

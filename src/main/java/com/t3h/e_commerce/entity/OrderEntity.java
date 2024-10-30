@@ -44,8 +44,6 @@ public class OrderEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "payment_id", referencedColumnName = "id")
     PaymentEntity payment;
-    String paymentMethod;
-    String paymentStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

@@ -4,11 +4,13 @@ import com.t3h.e_commerce.dto.requests.OrderCreationRequest;
 import com.t3h.e_commerce.dto.responses.OrderResponse;
 import com.t3h.e_commerce.entity.*;
 import com.t3h.e_commerce.enums.OrderStatusType;
+import com.t3h.e_commerce.enums.PaymentType;
 import com.t3h.e_commerce.exception.CustomExceptionHandler;
 import com.t3h.e_commerce.repository.CartItemRepository;
 import com.t3h.e_commerce.repository.OrderRepository;
 import com.t3h.e_commerce.service.IOrderService;
 import com.t3h.e_commerce.service.IUserService;
+import com.t3h.e_commerce.enums.PaymentStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,14 +58,16 @@ public class OrderServiceImpl implements IOrderService {
                 .collect(Collectors.toList());
 
         if (orderItems.isEmpty()) {
-            throw new IllegalArgumentException("Bạn vẫn chưa chọn sản phẩm nào để mua.");
+            throw CustomExceptionHandler.badRequestException("Bạn vẫn chưa chọn sản phẩm nào để mua.");
         }
 
         // Tính toán tổng giá tiền và phí vận chuyển
         BigDecimal totalPrice = orderItems.stream()
                 .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal shippingCost = calculateShippingCost(totalPrice);
+
+        //mặc định tiền ship se la 20
+        BigDecimal shippingCost = BigDecimal.valueOf(20.0);
 
         // Giả định có một discount cố định (bạn có thể thay đổi theo logic cụ thể của bạn)
         BigDecimal discount = BigDecimal.valueOf(10.0); // Ví dụ: giảm giá 10.0
@@ -78,8 +82,10 @@ public class OrderServiceImpl implements IOrderService {
         orderEntity.setOrderStatus(OrderStatusType.Pending);
         orderEntity.setCreatedDate(LocalDateTime.now());
         orderEntity.setUser(userLoggedIn);
-        orderEntity.setPaymentMethod(request.getPaymentMethod()); // Thiết lập paymentMethod
-        orderEntity.setPaymentStatus("PENDING");
+        //mặc định phương thức thanh toán là COD
+        orderEntity.getPayment().setPaymentMethod(PaymentType.COD); // Thiết lập paymentMethod
+        //mặc định trang thái giao hàng là pending
+        orderEntity.getPayment().setPaymentStatus(PaymentStatus.PENDING);
 
 
         // Thêm tracking ID và ngày giao hàng dự kiến
@@ -104,8 +110,8 @@ public class OrderServiceImpl implements IOrderService {
                 .expectedDeliveryDate(convertDateToLocalDateTime(orderEntity.getExpectedDeliveryDate())) // Chuyển đổi từ Date sang LocalDateTime // Thêm ngày giao hàng vào response
                 .orderStatus(orderEntity.getOrderStatus().name())
                 .orderPlacedBy(orderEntity.getUser().getLastName())
-                .paymentStatus(orderEntity.getPaymentStatus())
-                .paymentMethod(orderEntity.getPaymentMethod())
+                .paymentStatus(orderEntity.getPayment().getPaymentStatus().name())
+                .paymentMethod(orderEntity.getPayment().getPaymentMethod().name())
                 .createdDate(orderEntity.getCreatedDate())
                 .build();
     }
@@ -123,7 +129,4 @@ public class OrderServiceImpl implements IOrderService {
         return orderItem;
     }
 
-    private BigDecimal calculateShippingCost(BigDecimal totalPrice) {
-        return BigDecimal.valueOf(50); // Phí vận chuyển cố định
-    }
 }
