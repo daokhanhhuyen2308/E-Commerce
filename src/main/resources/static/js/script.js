@@ -76,7 +76,7 @@ document.querySelectorAll('.copy-code').forEach(button => {
 document.querySelectorAll('.navigation a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        const targetSection = document.querySelector(this.getAttribute('href'));
+        const targetSection = document.querySelector('href');
         targetSection.scrollIntoView({
             behavior: 'smooth'
         });
@@ -109,6 +109,7 @@ function toggleMenu() {
             });
         });
     });
+
 
 
 

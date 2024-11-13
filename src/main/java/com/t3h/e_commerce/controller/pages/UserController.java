@@ -18,17 +18,28 @@ public class UserController {
         return "guest/homepage";
     }
 
+    @GetMapping("/checkout")
+    public String checkoutPage() {
+        return "guest/checkout";
+    }
+
     @GetMapping("/payment")
     public String paymentPage() {
         return "guest/payment";
     }
     @GetMapping("/viewDetail")
     public String viewDetailPage() {
-        return "guest/demo";
+        return "guest/detail";
     }
     @GetMapping("/cart")
     public String viewCart(){
         return "guest/cart";
     }
+
+    @GetMapping("/shopping-cart")
+    public String shoppingCart(){
+        return "guest/shoppingCart";
+    }
+
 
 }

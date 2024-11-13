@@ -18,6 +18,7 @@ public class CartMapper {
 
         return CartResponse.builder()
                 .id(cart.getId())
+                .totalQuantity(cart.getTotalQuantity())
                 .items(cartItemResponses)
                 .createdBy(cart.getCreatedBy())
                 .createdDate(cart.getCreatedDate())
@@ -49,6 +50,7 @@ public class CartMapper {
                     .productName(cartItem.getProduct().getName())
                     .productQuantity(0)
                     .isAvailable(cartItem.getProduct().isAvailable())
+                    .productDescription(cartItem.getProduct().getDescription())
                     .build();
         }
 

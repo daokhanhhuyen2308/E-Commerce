@@ -1,6 +1,5 @@
 package com.t3h.e_commerce.dto.requests;
 
-import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,6 +14,20 @@ public class ProductRequestFilter {
     private BigDecimal maxPrice;
     private LocalDate fromDateQuery;
     private LocalDate toDateQuery;
+
+    public ProductRequestFilter() {
+    }
+
+    public ProductRequestFilter(String name, String category, String brand, BigDecimal minPrice, BigDecimal maxPrice,
+                                LocalDate fromDateQuery, LocalDate toDateQuery) {
+        this.name = name;
+        this.category = category;
+        this.brand = brand;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+        this.fromDateQuery = fromDateQuery;
+        this.toDateQuery = toDateQuery;
+    }
 
     public String getName() {
         return name;

@@ -26,13 +26,12 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         ApiHandleResponse<CustomError> apiHandleResponse = new ApiHandleResponse<>();
         apiHandleResponse.setStatusCode(HttpServletResponse.SC_UNAUTHORIZED);
-        CustomError customError = CustomError.builder()
-                .path(request.getRequestURI())
-                .timestamp(new Date())
-                .code("RESOURCE_UNAUTHORIZED")
-                .details("You need to authenticate or provide valid credentials to access this resource. Please recheck your information!")
-                .message(authException.getMessage())
-                .build();
+        CustomError customError = new CustomError();
+                customError.setPath(request.getRequestURI());
+                customError.setTimestamp(new Date());
+                customError.setCode("RESOURCE_UNAUTHORIZED");
+                customError.setDetails("You need to authenticate or provide valid credentials to access this resource. Please recheck your information!");
+                customError.setMessage(authException.getMessage());
 
         apiHandleResponse.setError(customError);
 

@@ -1,9 +1,6 @@
 package com.t3h.e_commerce.dto;
 
 
-import lombok.Getter;
-
-@Getter
 public class ApiHandleResponse<T>{
     private int statusCode;
     private T error;
@@ -26,5 +23,13 @@ public class ApiHandleResponse<T>{
 
     public void setError(T error) {
         this.error = error;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public T getError() {
+        return error;
     }
 }

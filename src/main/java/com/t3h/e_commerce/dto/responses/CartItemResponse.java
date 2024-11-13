@@ -14,6 +14,7 @@ public class CartItemResponse {
     Integer productId;
     String productImage;
     String productName;
+    String productDescription;
     Integer productQuantity;
     BigDecimal productPrice;
     boolean isAvailable;

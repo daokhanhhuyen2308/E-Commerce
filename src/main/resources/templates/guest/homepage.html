@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Fashion Store</title>
     <link rel="stylesheet" href="../homepage/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -76,11 +77,14 @@
                     <span style="margin-top: 22px; margin-right: 3px; color: #e86868; font-size: 15px;" >0 </span> <span>Sản phẩm</span>
                 </div>
             
-                <div class="cart">
-                    <i class="fa fa-shopping-bag" style="color: #ff6f61"></i>
-                    <!--cần xử lý với giỏ hàng-->
-                    <span style="color: #ff6f61" id="inCart">Giỏ hàng</span>
-                    <span style="margin-top: 22px; margin-right: 3px; color: #e86868; font-size: 15px;" >0 </span> <span>Sản phẩm</span>
+                <div class="cart" id="showCart">
+                    <a href="http://localhost:8082/guest/shopping-cart">
+                        <i class="fa fa-shopping-bag" style="color: #ff6f61"></i>
+                    </a>
+                    <!--cần xử lý với giỏ hàng--
+                         <span style="color: #ff6f61">Giỏ hàng</span>
+
+                    <span style="margin-top: 22px; margin-right: 3px; color: #e86868; font-size: 15px;" id="quantityCart" >0 </span> <span>Sản phẩm</span>
                 </div>
             </div>
 
@@ -152,153 +156,20 @@
     <!-- Product List Section -->
     <section id="product-list" class="product-list">
         <h2>Featured Products</h2>
-        <div class="products">
-            <!-- Product 1 -->
-            <div class="product">
-                <img src="/image/product1.webp" alt="Product 1">
-                <div class="color-options1">
+        <div id="products" class="products">
+<!--            <div class="d-flex justify-content-end">-->
+<!--                <nav aria-label="Page navigation" style="-->
+<!--    margin-top: 2%;-->
+<!--    padding-right: 2%;-->
+<!--">-->
+<!--                    <ul class="pagination" id="paginationId">-->
+<!--                                                            <li class="page-item"><a class="page-link-" href="#">1</a></li>-->
+<!--                                                            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
 
-                    <ul class="color-list1">
-                        <li style="background-color: #f0bf82;"></li>
-                        <li style="background-color: #e86868;"></li>
-                        <li style="background-color: #e47bf0;"></li>
-                    </ul>
-                </div>
-                <h3>Product 1</h3>
-                <p>$100.00</p>
-                <div class="rating">
-                    ★★★★☆
-                </div>
-                <button>Add to Cart</button>
-            </div>
-            <!-- Product 2 -->
-            <div class="product">
-                <img src="/image/product1.webp" alt="Product 2">
-                <div class="color-options1">
-
-                    <ul class="color-list1">
-                        <li style="background-color: #f0bf82;"></li>
-                        <li style="background-color: #e86868;"></li>
-                        <li style="background-color: #e47bf0;"></li>
-                    </ul>
-                </div>
-                <h3>Product 2</h3>
-                <p>$150.00</p>
-                <div class="rating">
-                    ★★★★☆
-                </div>
-                
-                <button>Add to Cart</button>
-            </div>
-            <!-- Product 3 -->
-            <div class="product">
-                <img src="/image/product1.webp" alt="Product 3">
-                <div class="color-options1">
-
-                    <ul class="color-list1">
-                        <li style="background-color: #f0bf82;"></li>
-                        <li style="background-color: #e86868;"></li>
-                        <li style="background-color: #e47bf0;"></li>
-                    </ul>
-                </div>
-                <h3>Product 3</h3>
-                <p>$200.00</p>
-                <div class="rating">
-                    ★★★★☆
-                </div>
-                <button>Add to Cart</button>
-            </div>
-            <!-- Product 4 -->
-            <div class="product">
-                <img src="/image/product1.webp" alt="Product 4">
-                <div class="color-options1">
-
-                    <ul class="color-list1">
-                        <li style="background-color: #f0bf82;"></li>
-                        <li style="background-color: #e86868;"></li>
-                        <li style="background-color: #e47bf0;"></li>
-                    </ul>
-                </div>
-                <h3>Product 4</h3>
-                <p>$250.00</p>
-                <div class="rating">
-                    ★★★★☆
-                </div>
-                <button>Add to Cart</button>
-            </div>
-    
-            <!-- Product 5 -->
-            <div class="product">
-                <img src="/image/product1.webp" alt="Product 5">
-                <div class="color-options1">
-
-                    <ul class="color-list1">
-                        <li style="background-color: #f0bf82;"></li>
-                        <li style="background-color: #e86868;"></li>
-                        <li style="background-color: #e47bf0;"></li>
-                    </ul>
-                </div>
-                <h3>Product 5</h3>
-                <p>$300.00</p>
-                <div class="rating">
-                    ★★★★☆
-                </div>
-                <button>Add to Cart</button>
-            </div>
-            <!-- Product 6 -->
-            <div class="product">
-                <img src="/image/product1.webp" alt="Product 6">
-                <div class="color-options1">
-
-                    <ul class="color-list1">
-                        <li style="background-color: #f0bf82;"></li>
-                        <li style="background-color: #e86868;"></li>
-                        <li style="background-color: #e47bf0;"></li>
-                    </ul>
-                </div>
-                <h3>Product 6</h3>
-                <p>$350.00</p>
-                <div class="rating">
-                    ★★★★☆
-                </div>
-                <button>Add to Cart</button>
-            </div>
-            <!-- Product 7 -->
-            <div class="product">
-                <img src="/image/product1.webp" alt="Product 7">
-                <div class="color-options1">
-
-                    <ul class="color-list1">
-                        <li style="background-color: #f0bf82;"></li>
-                        <li style="background-color: #e86868;"></li>
-                        <li style="background-color: #e47bf0;"></li>
-                    </ul>
-                </div>
-                <h3>Product 7</h3>
-                <p>$400.00</p>
-                <div class="rating">
-                    ★★★★☆
-                </div>
-                <button>Add to Cart</button>
-            </div>
-            <!-- Product 8 -->
-            <div class="product">
-                <img src="/image/product1.webp" alt="Product 8">
-                <div class="color-options1">
-
-                    <ul class="color-list1">
-                        <li style="background-color: #f0bf82;"></li>
-                        <li style="background-color: #e86868;"></li>
-                        <li style="background-color: #e47bf0;"></li>
-                    </ul>
-                </div>
-                <h3>Product 8</h3>
-                <p>$450.00</p>
-                <div class="rating">
-                    ★★★★☆
-                </div>
-                <button>Add to Cart</button>
-            </div>
+<!--                    </ul>-->
+<!--                </nav>-->
+<!--            </div>-->
         </div>
     </section>
 
@@ -795,6 +666,7 @@
     </footer>
     
     <script src="../js/script.js"></script>
-    <script src="../js/cart.js"></script>
+    <script src="../js/homepage.js"></script>
+    <script src="../js/detail.js"></script>
 </body>
 </html>

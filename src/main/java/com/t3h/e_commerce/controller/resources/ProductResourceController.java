@@ -53,9 +53,13 @@ public class ProductResourceController {
     }
 
     @GetMapping("/get/{id}")
-    public ProductResponse getProductById(@PathVariable Integer id){
-        ProductResponse ps = iProductService.getById(id);
-        return ResponseEntity.ok(ps).getBody();
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Integer id){
+        return ResponseEntity.ok(iProductService.getById(id));
+    }
+
+    @GetMapping("/{slug}")
+    public ResponseEntity<ProductResponse> getProductBySlug(@PathVariable String slug){
+        return ResponseEntity.ok(iProductService.getProductBySlug(slug));
     }
 
 

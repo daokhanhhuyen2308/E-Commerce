@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
@@ -19,4 +21,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
         " AND (:#{#filter.category} is null OR c.code = :#{#filter.category})" +
         " AND (:#{#filter.brand} is null OR b.code = :#{#filter.brand})")
     Page<ProductEntity> searchProductEntitiesByConditions(@Param("filter") ProductRequestFilter filter, Pageable pageable);
+
+    @Query(value = "SELECT p FROM ProductEntity p WHERE p.slug = :slug")
+    Optional<ProductEntity> findProductBySlug(@Param("slug") String slug);
 }

@@ -28,7 +28,7 @@ $(document).ready(function(){
             data: JSON.stringify({username: loginUsername, password: loginPassword}),
             success: function (response) {
                 console.log("Response:", response);
-                alert("Login successful");
+                // alert("Login successful");
                 window.location.href = "homepage"
             },
             error: function (error) {

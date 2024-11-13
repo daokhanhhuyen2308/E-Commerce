@@ -29,6 +29,19 @@ public class CartServiceImpl implements ICartService {
     private final IUserService iUserService;
 
     @Override
+    public CartResponse getAllItemsInCart() {
+        UserEntity userLoggedIn = iUserService.getUserLoggedIn();
+
+        if (userLoggedIn == null){
+            throw CustomExceptionHandler.unauthorizedException("User not logged in");
+        }
+
+        CartEntity cartEntity = userLoggedIn.getCart();
+
+        return CartMapper.toCartResponse(cartEntity);
+    }
+
+    @Override
     public CartResponse addToCart(AddToCartRequest request) {
 
         UserEntity userLoggedIn = iUserService.getUserLoggedIn();
@@ -45,10 +58,10 @@ public class CartServiceImpl implements ICartService {
                 cartEntity.setCartItems(new ArrayList<>());
         }
 
-        //check in cart was existed before adding to cart
-        int quantityPurchased = request.getQuantity();
+        int quantityPurchased = request.getQuantity() != null ? request.getProductId() : 1;
         int productIdPurchasedId = request.getProductId();
 
+        //check in cart was existed before adding to cart
         ProductEntity product = productRepository.findById(productIdPurchasedId)
                 .orElseThrow(() -> CustomExceptionHandler.notFoundException("Product not found"));
 
@@ -106,9 +119,8 @@ public class CartServiceImpl implements ICartService {
         productRepository.save(product);
         cartRepository.save(cartEntity);
 
-        CartResponse cartResponse = CartMapper.toCartResponse(cartEntity);
         cartEntity.setTotalQuantity(cartItemEntities.stream().mapToInt(CartItemEntity::getQuantity).sum());
-        return cartResponse;
+        return CartMapper.toCartResponse(cartEntity);
     }
 
     @Override
@@ -154,14 +166,17 @@ public class CartServiceImpl implements ICartService {
         productRepository.save(product);
         cartItemRepository.save(cartItemUpdate);
 
-        CartResponse cartResponse = CartMapper.toCartResponse(cartEntity);
-        cartEntity.setTotalQuantity(cartItemEntities.stream().mapToInt(CartItemEntity::getQuantity).sum());
-
-        return cartResponse;
+        //cartEntity.setTotalQuantity(cartItemEntities.stream().mapToInt(CartItemEntity::getQuantity).sum());
+        return CartMapper.toCartResponse(cartEntity);
     }
 
     @Override
     public CartResponse deleteCart(Integer itemId) {
+        return null;
+    }
+
+    @Override
+    public CartResponse addItemToCart(String slug, Integer quantity) {
         return null;
     }
 

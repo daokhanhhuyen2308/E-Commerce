@@ -11,4 +11,8 @@ public interface ICartService {
     CartResponse updateCart(Integer itemId, CartItemUpdate request);
 
     CartResponse deleteCart(Integer itemId);
+
+    CartResponse addItemToCart(String slug, Integer quantity);
+
+    CartResponse getAllItemsInCart();
 }

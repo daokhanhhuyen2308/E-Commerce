@@ -10,7 +10,7 @@ public interface ProductMapper2 {
 
     // Map ProductEntity to ProductResponse
 
-    ProductResponse toProductResponse(ProductEntity product);
+//    ProductResponse toProductResponse(ProductEntity product);
 
 
 

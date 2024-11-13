@@ -1,4 +1,4 @@
-const URL = 'http://localhost:8080/products';
+const URL = 'http://localhost:8082/products';
 $(document).ready(function(){
     $('.image').on('click', function(){
         const productId = $(this).data('id');
@@ -42,7 +42,7 @@ if(existingProductIndex > -1){
                 name: respone.price,
                 quantity: 1
             });
-            console.log('cart uplated:' , cart);
+            console.log('cart updated:' , cart);
             alert(`${response.name} has been added to your cart.`);
         },
         error: function (error){

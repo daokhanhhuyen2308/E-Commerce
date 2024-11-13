@@ -54,17 +54,21 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<CustomError> handleGeneralException(Exception exception, HttpServletRequest request){
+    public ResponseEntity<ApiHandleResponse<CustomError>> handleGeneralException(Exception exception, HttpServletRequest request){
 
-        CustomError response = CustomError.builder()
-                .code("INTERNAL_SERVER_ERROR")
-                .details("An unexpected error occurred. Please try again later!")
-                .message(exception.getMessage())
-                .timestamp(new Date())
-                .path(request.getRequestURI())
-                .build();
+        ApiHandleResponse<CustomError> apiResponse = new ApiHandleResponse<>();
+        apiResponse.setStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        CustomError customError = new CustomError();
+        customError.setCode("INTERNAL_SERVER_ERROR");
+        customError.setDetails("An unexpected error occurred. Please try again later!");
+        customError.setMessage(exception.getMessage());
+        customError.setTimestamp(new Date());
+        customError.setPath(request.getRequestURI());
+
+       apiResponse.setError(customError);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(apiResponse);
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -73,12 +77,14 @@ public class GlobalExceptionHandler {
         ApiHandleResponse<CustomError> apiHandleResponse = new ApiHandleResponse<>();
         apiHandleResponse.setStatusCode(HttpServletResponse.SC_BAD_REQUEST);
 
-        apiHandleResponse.setError(CustomError.builder().code("VALIDATION_ERROR")
-                .timestamp(new Date())
-                .message(Objects.requireNonNull(exception.getBindingResult().getFieldError()).getDefaultMessage())
-                .path(request.getRequestURI())
-                .details("Please recheck your information!")
-                .build());
+        CustomError customError = new CustomError();
+        customError.setCode("VALIDATION_ERROR");
+        customError.setTimestamp(new Date());
+        customError.setPath(request.getRequestURI());
+        customError.setDetails("Validation failed. Please check your information!");
+        customError.setMessage(Objects.requireNonNull(exception.getBindingResult().getFieldError()).getDefaultMessage());
+
+        apiHandleResponse.setError(customError);
 
         return ResponseEntity.badRequest().body(apiHandleResponse);
     }

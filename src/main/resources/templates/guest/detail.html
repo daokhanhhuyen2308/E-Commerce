@@ -6,12 +6,13 @@
     <title>E-Commerce</title>
     <link rel="stylesheet" href="../assets/demo.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header th:replace="cms/common/header::header"></header>
     <div class="container" style="margin-top:150px">
         <div class="image" id="productImage">
-            <img src="../assets/images/1.png" alt="Product 1">
+            <img src="/image/product5.webp" alt="Product 1">
         </div>
         <div class="content">
             <div class="name" id="productName">
@@ -29,7 +30,7 @@
             </div>
             <div class="description" id="productDescription">
                 <h3>Product Description</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor, nisi in gravida fermentum, justo velit convallis neque, ac consectetur purus neque nec nunc. Nullam auctor, diam id malesuada eleifend, libero nunc tristique nunc, vel efficitur mauris tellus nec nisi. Donec viverra, erat et ultricies pellentesque, mauris justo ultricies ligula, id pellentesque nisi velit sed tortor. Sed vel ligula in velit malesuada placerat. Nulla facilisi. Maecenas vel velit vel sapien semper malesuada.</p>
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
             </div>
             <div class="sizes">
                 <label for="size">Size:</label>
@@ -47,13 +48,19 @@
                     <button class="color-button" data-value="green" style="background-color: green; color: white;">Green</button>
                 </div>
             </div>
+            <div class="productQuantity">
+                <label>Quantity:
+                    <input type="number" id="quantityInput" value="1">
+                </label>
+            </div>
             <div class="btn">
-            <button class="add-to-cart" data-id="1">Add to cart</button>
-            <button class="buy-now">Mua ngay</button> 
+            <button class="add-to-cart" id="addToCart">Add to cart</button>
+            <button class="buy-now" id="buyNow">Mua ngay</button>
         </div>   
         </div>
     </div>
 <footer th:replace="cms/common/footer::footer"></footer>
-<script src="..js/viewdetail.js"></script>
+<script src="../js/detail.js"></script>
+<script src="../js/cart.js"></script>
 </body>
 </html>

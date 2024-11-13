@@ -28,4 +28,15 @@ public class CartResourceController {
     public ResponseEntity<CartResponse> deleteCart(@PathVariable Integer itemId){
         return ResponseEntity.ok(iCartService.deleteCart(itemId));
     }
+
+    @GetMapping("/all-items")
+    public ResponseEntity<CartResponse> getAllItemsInCart(){
+        return ResponseEntity.ok(iCartService.getAllItemsInCart());
+    }
+
+    @PostMapping("/add/{slug}")
+    public ResponseEntity<CartResponse> addItemToCart(@PathVariable String slug, @RequestBody Integer quantity){
+        return ResponseEntity.ok(iCartService.addItemToCart(slug, quantity));
+    }
+
 }

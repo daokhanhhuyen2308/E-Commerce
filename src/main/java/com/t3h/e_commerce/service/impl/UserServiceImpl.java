@@ -89,8 +89,8 @@ public class UserServiceImpl implements IUserService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if(principal instanceof UserDetails){
-            String userEmail = ((UserDetails) principal).getUsername();
-            return userRepository.findByEmail(userEmail).orElseThrow(() ->
+            String username = ((UserDetails) principal).getUsername();
+            return userRepository.findByUsername(username).orElseThrow(() ->
                     CustomExceptionHandler.notFoundException("User not found"));
 
         }

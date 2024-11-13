@@ -21,6 +21,8 @@ admin:
 server:
   port: 8082
 
+
+
 logging:
   level:
     root: INFO

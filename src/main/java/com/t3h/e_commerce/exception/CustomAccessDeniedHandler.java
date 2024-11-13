@@ -24,13 +24,12 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
                        AccessDeniedException accessDeniedException) throws IOException {
         ApiHandleResponse<CustomError> apiHandleResponse  = new ApiHandleResponse<>();
         apiHandleResponse.setStatusCode(HttpServletResponse.SC_FORBIDDEN);
-        CustomError customError = CustomError.builder()
-                .code("RESOURCE_ACCESS_DENIED")
-                .path(request.getRequestURI())
-                .timestamp(new Date())
-                .message(accessDeniedException.getMessage())
-                .details("Access is denied due to only ADMIN or MANAGER permission access those endpoints. Please recheck your information!")
-                .build();
+        CustomError customError = new CustomError();
+                customError.setCode("RESOURCE_ACCESS_DENIED");
+                customError.setPath(request.getRequestURI());
+                customError.setTimestamp(new Date());
+                customError.setMessage(accessDeniedException.getMessage());
+                customError.setDetails("Access is denied due to only ADMIN or MANAGER permission access those endpoints. Please recheck your information!");
 
         apiHandleResponse.setError(customError);
 

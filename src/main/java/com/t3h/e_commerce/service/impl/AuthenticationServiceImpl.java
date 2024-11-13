@@ -7,8 +7,14 @@ import com.t3h.e_commerce.exception.CustomExceptionHandler;
 import com.t3h.e_commerce.repository.UserRepository;
 import com.t3h.e_commerce.service.IAuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 
 @Service
@@ -17,6 +23,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -31,8 +38,14 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
             throw CustomExceptionHandler.unauthorizedException("User not authenticated");
         }
 
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), request.getPassword(),
+                        user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getCode()))
+                                .collect(Collectors.toSet()))
+        );
+
         return AuthenticationResponse.builder()
-                .isAuthenticated(true)
+                .isAuthenticated(authentication.isAuthenticated())
                 .build();
     }
 

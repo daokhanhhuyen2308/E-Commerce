@@ -15,4 +15,6 @@ public interface IProductService {
     ProductResponse updateProduct(Integer id, ProductUpdateRequest request);
 
     ProductResponse getById(Integer id);
+
+    ProductResponse getProductBySlug(String slug);
 }

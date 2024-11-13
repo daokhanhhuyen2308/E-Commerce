@@ -16,9 +16,9 @@ import com.t3h.e_commerce.repository.CategoryRepository;
 import com.t3h.e_commerce.repository.ProductRepository;
 import com.t3h.e_commerce.repository.ProductStatusRepository;
 import com.t3h.e_commerce.service.IProductService;
+import com.t3h.e_commerce.utils.SlugUtils;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,9 +37,9 @@ public class ProductServiceImpl implements IProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
     private final CategoryRepository categoryRepository;
-    private final ModelMapper modelMapper;
+//    private final ModelMapper modelMapper;
     private final ProductStatusRepository productStatusRepository;
-//    private  final ProductMapper2 productMapper;
+//   private  final ProductMapper2 productMapper;
 
     @Override
     public ResponsePage<ProductResponse> getAllProducts(ProductRequestFilter filter, int page, int size) {
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements IProductService {
         Page<ProductEntity> productEntityPage = productRepository.searchProductEntitiesByConditions(filter, pageable);
 
         List<ProductResponse> productResponses = productEntityPage.getContent().stream()
-                .map(product -> modelMapper.map(product, ProductResponse.class))
+                .map(ProductMapper::toProductResponse)
                 .toList();
 
         ResponsePage<ProductResponse> responsePage = new ResponsePage<>();
@@ -133,10 +133,11 @@ public class ProductServiceImpl implements IProductService {
         product.setCreatedBy(username);
         product.setLastModifiedDate(LocalDateTime.now());
         product.setLastModifiedBy(username);
+        product.setSlug(SlugUtils.changeProductNameToSlug(product.getName()));
 
         product = productRepository.save(product);
 
-        return modelMapper.map(product, ProductResponse.class);
+        return ProductMapper.toProductResponse(product);
     }
 
     @Override
@@ -144,6 +145,14 @@ public class ProductServiceImpl implements IProductService {
        ProductEntity productEntity = productRepository.findById(id)
                .orElseThrow(() -> CustomExceptionHandler.notFoundException("Product not found with id" + id));
 
+        return ProductMapper.toProductResponse(productEntity);
+    }
+
+    @Override
+    public ProductResponse getProductBySlug(String slug) {
+
+        ProductEntity productEntity = productRepository.findProductBySlug(slug)
+                .orElseThrow(() -> CustomExceptionHandler.notFoundException("Product not found with slug" + slug));
         return ProductMapper.toProductResponse(productEntity);
     }
 }

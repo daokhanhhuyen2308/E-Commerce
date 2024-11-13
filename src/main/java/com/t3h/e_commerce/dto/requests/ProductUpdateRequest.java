@@ -1,14 +1,10 @@
 package com.t3h.e_commerce.dto.requests;
 
-import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.experimental.FieldDefaults;
+
 
 import java.math.BigDecimal;
 
-//@Data
 
 @Builder
 //@FieldDefaults(level = AccessLevel.PRIVATE)
@@ -18,6 +14,18 @@ public class ProductUpdateRequest {
     private String description;
     private BigDecimal price;
     private Integer quantity;
+
+    public ProductUpdateRequest() {
+    }
+
+    public ProductUpdateRequest(String name, String imageUrl, String description,
+                                BigDecimal price, Integer quantity) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
     public String getName() {
         return name;
